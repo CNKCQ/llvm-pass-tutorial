@@ -12,10 +12,10 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "Transforms/Obfuscation/Substitution.h"
+#include "./include/Transforms/Obfuscation/Substitution.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/Support/raw_ostream.h"
-#include "Transforms/Obfuscation/Utils.h"
+#include "./include/Transforms/Obfuscation/Utils.h"
 #include "llvm/IR/Intrinsics.h"
 
 #define DEBUG_TYPE "substitution"
@@ -229,10 +229,10 @@ void Substitution::addDoubleNeg(BinaryOperator *bo) {
     //op->setHasNoSignedWrap(bo->hasNoSignedWrap());
     //op->setHasNoUnsignedWrap(bo->hasNoUnsignedWrap());
   } else {
-    op = BinaryOperator::CreateFNeg(bo->getOperand(0), "", bo);
-    op2 = BinaryOperator::CreateFNeg(bo->getOperand(1), "", bo);
+    op = BinaryOperator::CreateNeg(bo->getOperand(0), "", bo);
+    op2 = BinaryOperator::CreateNeg(bo->getOperand(1), "", bo);
     op = BinaryOperator::Create(Instruction::FAdd, op, op2, "", bo);
-    op = BinaryOperator::CreateFNeg(op, "", bo);
+    op = BinaryOperator::CreateNeg(op, "", bo);
   }
 
   bo->replaceAllUsesWith(op);
@@ -311,7 +311,7 @@ void Substitution::subNeg(BinaryOperator *bo) {
     //op->setHasNoSignedWrap(bo->hasNoSignedWrap());
     //op->setHasNoUnsignedWrap(bo->hasNoUnsignedWrap());
   } else {
-    op = BinaryOperator::CreateFNeg(bo->getOperand(1), "", bo);
+    op = BinaryOperator::CreateNeg(bo->getOperand(1), "", bo);
     op = BinaryOperator::Create(Instruction::FAdd, bo->getOperand(0), op, "",
                                 bo);
   }

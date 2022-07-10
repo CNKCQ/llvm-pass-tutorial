@@ -9,8 +9,9 @@
 #include "llvm/IR/Value.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/raw_ostream.h"
-#include "llvm/CryptoUtils.h"
-#include "Transforms/Obfuscation/StringObfuscation.h"
+#include "llvm/Support/Alignment.h"
+#include "./include/llvm/CryptoUtils.h"
+#include "./include/Transforms/Obfuscation/StringObfuscation.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
 
@@ -179,10 +180,10 @@ namespace llvm {
                                 //errs()<<"Load: "<<*(Load->getPointerOperand())<<"\n";
                                 Value* indexList[2] = {ConstantInt::get(variable->getType(), 0), variable};
                                 Value *const_key=builder.getInt8(key);
-                                Value *GEP=builder.CreateGEP(gvar,ArrayRef<Value*>(indexList, 2),"arrayIdx");
-                                LoadInst *loadElement=builder.CreateLoad(GEP,false);
+                                Value *GEP=builder.CreateGEP(gvar->getType()->getPointerElementType(), gvar,ArrayRef<Value*>(indexList, 2),"arrayIdx");
+                                LoadInst *loadElement=builder.CreateLoad(GEP->getType()->getPointerElementType(), GEP, false);
 #if LLVM_VERSION_MAJOR >= 10
-                                loadElement->setAlignment(MaybeAlign(1));
+                                loadElement->setAlignment(Align(1));
 #else
                                 loadElement->setAlignment(1);
 #endif
@@ -192,7 +193,7 @@ namespace llvm {
                                 Value *Xor = builder.CreateXor(loadElement,const_key,"xor");
                                 StoreInst *Store = builder.CreateStore(Xor, GEP,false);
 #if LLVM_VERSION_MAJOR >= 10
-                                Store->setAlignment(MaybeAlign(1));
+                                Store->setAlignment(Align(1));
 #else
                                 Store->setAlignment(1);
 #endif

@@ -18,7 +18,7 @@ llvm::PassPluginLibraryInfo getOllvmPluginInfo() {
             // cryptoutils->prng_seed();
             PB.registerPipelineStartEPCallback(
                 [](llvm::ModulePassManager &PM,
-                    llvm::OptimizationLevel Level) {
+                    PassBuilder::OptimizationLevel Level) {
                     PM.addPass(AntiClassDumpPass()); /*only apple*/
                     PM.addPass(FunctionCallObfuscatePass()); /*only apple*/
                     PM.addPass(IndirectBranchPass());
@@ -33,7 +33,7 @@ llvm::PassPluginLibraryInfo getOllvmPluginInfo() {
 
             PB.registerOptimizerLastEPCallback(
                 [](llvm::ModulePassManager &PM,
-                    llvm::OptimizationLevel Level) {
+                    PassBuilder::OptimizationLevel Level) {
                     PM.addPass(StringEncryptionPass());
                     PM.addPass(FunctionWrapperPass());
                 });

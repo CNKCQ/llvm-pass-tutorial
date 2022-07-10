@@ -25,7 +25,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/Support/CommandLine.h"
 #include "Transforms/Obfuscation/Utils.h"
-#include "llvm/CryptoUtils.h"
+#include "../../llvm/CryptoUtils.h"
 
 // Namespace
 namespace llvm {

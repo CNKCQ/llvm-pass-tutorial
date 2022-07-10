@@ -3,7 +3,7 @@
 //
 
 #include "Transforms/Obfuscation/Flattening.h"
-#include "Transforms/Obfuscation/StringObfuscation.h"
+#include "./include/Transforms/Obfuscation/StringObfuscation.h"
 #include "Transforms/Obfuscation/Substitution.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"

@@ -2,10 +2,10 @@
 // Created by LeadroyaL on 2018/10/10.
 //
 
-#include "Transforms/Obfuscation/BogusControlFlow.h"
-#include "Transforms/Obfuscation/Flattening.h"
-#include "Transforms/Obfuscation/Split.h"
-#include "Transforms/Obfuscation/Substitution.h"
+#include "./include/Transforms/Obfuscation/BogusControlFlow.h"
+#include "./include/Transforms/Obfuscation/Flattening.h"
+#include "./include/Transforms/Obfuscation/Split.h"
+#include "./include/Transforms/Obfuscation/Substitution.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"
 
