@@ -5,10 +5,10 @@ add_library(Armariris MODULE
         Substitution.cpp
         Flattening.cpp
         Utils.cpp
-        include/Transforms/Obfuscation/Flattening.h
-        include/Transforms/Obfuscation/StringObfuscation.h
-        include/Transforms/Obfuscation/Substitution.h
-        include/Transforms/Obfuscation/Utils.h
+        include/llvm/Transforms/Obfuscation/Flattening.h
+        include/llvm/Transforms/Obfuscation/StringObfuscation.h
+        include/llvm/Transforms/Obfuscation/Substitution.h
+        include/llvm/Transforms/Obfuscation/Utils.h
         Enter.cpp
         )
 
@@ -16,6 +16,7 @@ add_library(Armariris MODULE
 target_compile_features(Armariris PRIVATE cxx_range_for cxx_auto_type)
 
 include_directories(include)
+include_directories(include/llvm)
 
 # LLVM is (typically) built with no C++ RTTI. We need to match that;
 # otherwise, we'll get linker errors about missing RTTI data.

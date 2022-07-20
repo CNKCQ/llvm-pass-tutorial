@@ -28,7 +28,7 @@
 #include "llvm/Pass.h"
 #include "llvm/Support/Path.h"
 #include "llvm/Support/raw_ostream.h"
-#include "Transforms/Obfuscation/Obfuscation.h"
+#include "llvm/Transforms/Obfuscation/Obfuscation.h"
 #include <algorithm>
 #include <cstdlib>
 #include <dlfcn.h>
@@ -37,7 +37,7 @@
 #include <regex>
 #include <string>
 #if LLVM_VERSION_MAJOR > 10
-#include "Transforms/Obfuscation/compat/CallSite.h"
+#include "llvm/Transforms/Obfuscation/compat/CallSite.h"
 #else
 #include "llvm/IR/CallSite.h"
 #endif

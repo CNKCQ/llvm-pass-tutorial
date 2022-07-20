@@ -11,8 +11,8 @@
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Support/CommandLine.h"
-#include "../../llvm/CryptoUtils.h"
-#include "llvm/Transforms/Utils.h"
+#include "llvm/Transforms/Obfuscation/CryptoUtils.h"
+#include "llvm/Transforms/Obfuscation/Utils.h"
 
 // Namespace
 using namespace std;

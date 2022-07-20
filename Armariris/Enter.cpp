@@ -2,9 +2,9 @@
 // Created by LeadroyaL on 2018/10/10.
 //
 
-#include "Transforms/Obfuscation/Flattening.h"
-#include "./include/Transforms/Obfuscation/StringObfuscation.h"
-#include "Transforms/Obfuscation/Substitution.h"
+#include "llvm/Transforms/Obfuscation/Flattening.h"
+#include "llvm/Transforms/Obfuscation/StringObfuscation.h"
+#include "llvm/Transforms/Obfuscation/Substitution.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"
 
@@ -17,9 +17,9 @@ static void registerArmaririsModulePass(const PassManagerBuilder &,
 
 static void registerArmaririsFunctionPass(const PassManagerBuilder &,
                               legacy::PassManagerBase &PM) {
-#if LLVM_VERSION_MAJOR >= 9
-    PM.add(createLowerSwitchPass());
-#endif
+// #if LLVM_VERSION_MAJOR >= 9
+//     PM.add(createLowerSwitchPass());
+// #endif
     PM.add(createFlattening(true));
     PM.add(createSubstitution(true));
 }

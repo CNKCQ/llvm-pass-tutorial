@@ -15,7 +15,7 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "Transforms/Obfuscation/StringEncryption.h"
+#include "llvm/Transforms/Obfuscation/StringEncryption.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/Instructions.h"
@@ -27,9 +27,9 @@
 #include "llvm/Support/TargetSelect.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"
-#include "Transforms/Obfuscation/CryptoUtils.h"
-#include "Transforms/Obfuscation/Obfuscation.h"
-#include "Transforms/Obfuscation/Utils.h"
+#include "llvm/Transforms/Obfuscation/CryptoUtils.h"
+#include "llvm/Transforms/Obfuscation/Obfuscation.h"
+#include "llvm/Transforms/Obfuscation/Utils.h"
 #include <cstdlib>
 #include <iostream>
 #include <map>

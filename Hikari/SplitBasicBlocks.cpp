@@ -11,9 +11,9 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "Transforms/Obfuscation/CryptoUtils.h"
-#include "Transforms/Obfuscation/Split.h"
-#include "Transforms/Obfuscation/Utils.h"
+#include "llvm/Transforms/Obfuscation/CryptoUtils.h"
+#include "llvm/Transforms/Obfuscation/Split.h"
+#include "llvm/Transforms/Obfuscation/Utils.h"
 
 #define DEBUG_TYPE "split"
 

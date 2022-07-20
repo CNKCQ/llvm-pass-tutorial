@@ -22,13 +22,13 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Value.h"
 #include "llvm/Pass.h"
-#include "Transforms/Obfuscation/Obfuscation.h"
+#include "llvm/Transforms/Obfuscation/Obfuscation.h"
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <string>
 #if LLVM_VERSION_MAJOR > 10
-#include "Transforms/Obfuscation/compat/CallSite.h"
+#include "llvm/Transforms/Obfuscation/compat/CallSite.h"
 #else
 #include "llvm/IR/CallSite.h"
 #endif

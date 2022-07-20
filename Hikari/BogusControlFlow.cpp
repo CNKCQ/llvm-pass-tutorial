@@ -108,11 +108,11 @@
 //
 //===----------------------------------------------------------------------------------===//
 
-#include "Transforms/Obfuscation/BogusControlFlow.h"
+#include "llvm/Transforms/Obfuscation/BogusControlFlow.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/NoFolder.h"
 #include "llvm/Support/TargetSelect.h"
-#include "Transforms/Obfuscation/Utils.h"
+#include "llvm/Transforms/Obfuscation/Utils.h"
 #include "llvm/Transforms/Utils/Local.h"
 #include <memory>
 

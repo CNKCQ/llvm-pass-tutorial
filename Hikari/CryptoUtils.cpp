@@ -17,7 +17,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "Transforms/Obfuscation/CryptoUtils.h"
+#include "llvm/Transforms/Obfuscation/CryptoUtils.h"
 #include "llvm/ADT/Statistic.h"
 #include "llvm/ADT/Twine.h"
 #include "llvm/IR/LLVMContext.h"

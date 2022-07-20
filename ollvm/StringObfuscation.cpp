@@ -9,11 +9,12 @@
 #include "llvm/IR/Value.h"
 #include "llvm/Pass.h"
 #include "llvm/Support/raw_ostream.h"
-#include "llvm/Support/Alignment.h"
 #include "llvm/Transforms/Obfuscation/CryptoUtils.h"
 #include "llvm/Transforms/Obfuscation/StringObfuscation.h"
+#include "llvm/Transforms/Obfuscation/Utils.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/Transforms/Utils/ModuleUtils.h"
+#include "llvm/IR/Instructions.h"
 
 using namespace llvm;
 
@@ -72,9 +73,6 @@ namespace llvm {
                                                                                   gv->getType()->getAddressSpace());
                                         // dynGV->copyAttributesFrom(gv);
                                         dynGV->setInitializer(gv->getInitializer());
-
-                                        std::string tmp=gv->getName().str();
-                                      //  errs()<<"GV: "<<*gv<<"\n";
 
                                         Constant *initializer = gv->getInitializer();
                                         ConstantDataSequential *cdata = dyn_cast<ConstantDataSequential>(initializer);
@@ -138,15 +136,12 @@ namespace llvm {
                         random_stream << StringObfDecodeRandomName;
                         random_stream >> random_str;
                         StringObfDecodeRandomName++;
-#if LLVM_VERSION_MAJOR >= 9
-                   FunctionCallee c = mod->getOrInsertFunction(".datadiv_decode" + random_str, FuncTy);
-                   Function* fdecode = cast<Function>(c.getCallee());
-                   fdecode->setCallingConv(CallingConv::C);
-#else
-                        Constant* c = mod->getOrInsertFunction(".datadiv_decode" + random_str, FuncTy);
+
+                        auto funccallee = mod->getOrInsertFunction(".datadiv_decode" + random_str, FuncTy);
+                        llvm::Value* c = funccallee.getCallee();
+
                         Function* fdecode = cast<Function>(c);
                         fdecode->setCallingConv(CallingConv::C);
-#endif
 
 
                         BasicBlock* entry = BasicBlock::Create(mod->getContext(), "entry", fdecode);
@@ -180,23 +175,15 @@ namespace llvm {
                                 //errs()<<"Load: "<<*(Load->getPointerOperand())<<"\n";
                                 Value* indexList[2] = {ConstantInt::get(variable->getType(), 0), variable};
                                 Value *const_key=builder.getInt8(key);
-                                Value *GEP=builder.CreateGEP(gvar->getType()->getPointerElementType(), gvar,ArrayRef<Value*>(indexList, 2),"arrayIdx");
-                                LoadInst *loadElement=builder.CreateLoad(GEP->getType()->getPointerElementType(), GEP, false);
-#if LLVM_VERSION_MAJOR >= 10
+                                Value *GEP=builder.CreateGEP(gvar,ArrayRef<Value*>(indexList, 2),"arrayIdx");
+                                LoadInst *loadElement=builder.CreateLoad(GEP,false);
                                 loadElement->setAlignment(Align(1));
-#else
-                                loadElement->setAlignment(1);
-#endif
                                 //errs()<<"Type: "<<*loadElement<<"\n";
                                 //CastInst* extended = new ZExtInst(const_key, loadElement->getType(), "extended", for_body);
                                 //Value* extended = builder.CreateZExtOrBitCast(const_key, loadElement->getType(),"extended");
                                 Value *Xor = builder.CreateXor(loadElement,const_key,"xor");
                                 StoreInst *Store = builder.CreateStore(Xor, GEP,false);
-#if LLVM_VERSION_MAJOR >= 10
                                 Store->setAlignment(Align(1));
-#else
-                                Store->setAlignment(1);
-#endif
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                 Value *stepValue = builder.getInt32(1);

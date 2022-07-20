@@ -11,8 +11,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "Transforms/Obfuscation/Obfuscation.h"
-#include "Transforms/Obfuscation/CryptoUtils.h"
+#include "llvm/Transforms/Obfuscation/Obfuscation.h"
+#include "llvm/Transforms/Obfuscation/CryptoUtils.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 

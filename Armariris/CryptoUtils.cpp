@@ -5,7 +5,7 @@
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/ADT/Twine.h"
 #include "llvm/ADT/Statistic.h"
-#include "./include/llvm/CryptoUtils.h"
+#include "llvm/Transforms/Obfuscation/CryptoUtils.h"
 
 #include <fstream>
 #include <string>

@@ -1,6 +1,6 @@
 #ifndef _OBFUSCATION_H_
 #define _OBFUSCATION_H_
-#include "Transforms/Obfuscation/AntiClassDump.h"
+#include "llvm/Transforms/Obfuscation/AntiClassDump.h"
 #include "Transforms/Obfuscation/Flattening.h"
 #include "Transforms/Obfuscation/StringEncryption.h"
 #include "Transforms/Obfuscation/FunctionCallObfuscate.h"

@@ -6,12 +6,12 @@ add_library(ollvm MODULE
     SplitBasicBlocks.cpp
     Substitution.cpp
     Utils.cpp
-    include/llvm/CryptoUtils.h
-    include/Transforms/Obfuscation/BogusControlFlow.h
-    include/Transforms/Obfuscation/Flattening.h
-    include/Transforms/Obfuscation/Split.h
-    include/Transforms/Obfuscation/Substitution.h
-    include/Transforms/Obfuscation/Utils.h
+    include/llvm/Transforms/Obfuscation/CryptoUtils.h
+    include/llvm/Transforms/Obfuscation/BogusControlFlow.h
+    include/llvm/Transforms/Obfuscation/Flattening.h
+    include/llvm/Transforms/Obfuscation/Split.h
+    include/llvm/Transforms/Obfuscation/Substitution.h
+    include/llvm/Transforms/Obfuscation/Utils.h
     Enter.cpp
 )
 
@@ -19,6 +19,7 @@ add_library(ollvm MODULE
 target_compile_features(ollvm PRIVATE cxx_range_for cxx_auto_type)
 
 include_directories(include)
+include_directories(include/llvm)
 
 # LLVM is (typically) built with no C++ RTTI. We need to match that;
 # otherwise, we'll get linker errors about missing RTTI data.

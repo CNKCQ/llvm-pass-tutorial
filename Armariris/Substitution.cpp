@@ -1,7 +1,7 @@
-#include "./include/Transforms/Obfuscation/Substitution.h"
+#include "llvm/Transforms/Obfuscation/Substitution.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/Support/raw_ostream.h"
-#include "Transforms/Obfuscation/Utils.h"
+#include "llvm/Transforms/Obfuscation/Utils.h"
 #include "llvm/IR/Intrinsics.h"
 
 #define DEBUG_TYPE "substitution"

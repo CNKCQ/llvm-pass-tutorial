@@ -12,18 +12,18 @@ add_library(Hikari MODULE
         IndirectBranch.cpp
         FunctionWrapper.cpp
         # Obfuscation.cpp
-        include/Transforms/Obfuscation/AntiClassDump.h
-        include/Transforms/Obfuscation/BogusControlFlow.h
-        include/Transforms/Obfuscation/CryptoUtils.h
-        include/Transforms/Obfuscation/Flattening.h
-        include/Transforms/Obfuscation/FunctionCallObfuscate.h
-        include/Transforms/Obfuscation/FunctionWrapper.h
-        include/Transforms/Obfuscation/IndirectBranch.h
-        include/Transforms/Obfuscation/Obfuscation.h
-        include/Transforms/Obfuscation/Split.h
-        include/Transforms/Obfuscation/StringEncryption.h
-        include/Transforms/Obfuscation/Substitution.h
-        include/Transforms/Obfuscation/Utils.h
+        include/llvm/Transforms/Obfuscation/AntiClassDump.h
+        include/llvm/Transforms/Obfuscation/BogusControlFlow.h
+        include/llvm/Transforms/Obfuscation/CryptoUtils.h
+        include/llvm/Transforms/Obfuscation/Flattening.h
+        include/llvm/Transforms/Obfuscation/FunctionCallObfuscate.h
+        include/llvm/Transforms/Obfuscation/FunctionWrapper.h
+        include/llvm/Transforms/Obfuscation/IndirectBranch.h
+        include/llvm/Transforms/Obfuscation/Obfuscation.h
+        include/llvm/Transforms/Obfuscation/Split.h
+        include/llvm/Transforms/Obfuscation/StringEncryption.h
+        include/llvm/Transforms/Obfuscation/Substitution.h
+        include/llvm/Transforms/Obfuscation/Utils.h
         Enter.cpp
         )
 
@@ -31,6 +31,7 @@ add_library(Hikari MODULE
 target_compile_features(Hikari PRIVATE cxx_range_for cxx_auto_type)
 
 include_directories(include)
+include_directories(include/llvm)
 
 # LLVM is (typically) built with no C++ RTTI. We need to match that;
 # otherwise, we'll get linker errors about missing RTTI data.

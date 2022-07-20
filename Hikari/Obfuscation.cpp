@@ -19,7 +19,7 @@
   Because currently there is no way to add dependency to transform passes
   Ref : http://lists.llvm.org/pipermail/llvm-dev/2011-February/038109.html
 */
-#include "Transforms/Obfuscation/Obfuscation.h"
+#include "llvm/Transforms/Obfuscation/Obfuscation.h"
 using namespace llvm;
 using namespace std;
 // Begin Obfuscator Options

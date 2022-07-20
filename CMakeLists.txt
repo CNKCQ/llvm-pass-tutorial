@@ -26,5 +26,5 @@ set(CMAKE_SKIP_RPATH ON)
 
 # add_subdirectory(skeleton)  # Use your pass name here.
 # add_subdirectory(ollvm)  # ollvm
- add_subdirectory(Hikari)  # Hikari
-# add_subdirectory(Armariris)  # Armariris
+#  add_subdirectory(Hikari)  # Hikari
+add_subdirectory(Armariris)  # Armariris
