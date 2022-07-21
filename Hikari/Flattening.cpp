@@ -85,7 +85,7 @@ bool Flattening::flatten(Function *f) {
     origBB.push_back(tmp);
 
     BasicBlock *bb = &*i;
-    if (!isa<BranchInst>(bb->getTerminator())) {
+    if (!isa<InvokeInst>(bb->getTerminator())) {
       return false;
     }
   }
@@ -137,7 +137,7 @@ bool Flattening::flatten(Function *f) {
   loopEnd = BasicBlock::Create(f->getContext(), "loopEnd", f, insert);
 
 #if LLVM_VERSION_MAJOR >= 13
-  load = new LoadInst(switchVar->getType()->getPointerElementType(), switchVar, "switchVar", loopEntry);
+  load = new LoadInst(switchVar->getType()->getElementType(), switchVar, "switchVar", loopEntry);
 #else
   load = new LoadInst(switchVar, "switchVar", loopEntry);
 #endif
