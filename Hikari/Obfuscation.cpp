@@ -64,6 +64,7 @@ struct Obfuscation : public ModulePass {
     return StringRef("HikariObfuscationScheduler");
   }
   bool runOnModule(Module &M) override {
+    errs() << "I saw a Module called " << M.getName() << "!\n";
     // Initial ACD Pass
     if (EnableAllObfuscation || EnableAntiClassDump) {
       ModulePass *P = createAntiClassDumpPass();

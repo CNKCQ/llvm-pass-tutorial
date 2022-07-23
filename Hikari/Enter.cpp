@@ -5,68 +5,74 @@
 #include "llvm/Transforms/Obfuscation/Obfuscation.h"
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"
 
-#if LLVM_VERSION_MAJOR >= 13
-#include "llvm/Passes/PassBuilder.h"
-#include "llvm/Passes/PassPlugin.h"
+// #if LLVM_VERSION_MAJOR >= 13
+// #include "llvm/Passes/PassBuilder.h"
+// #include "llvm/Passes/PassPlugin.h"
 
-namespace llvm {
+// namespace llvm {
 
-llvm::PassPluginLibraryInfo getOllvmPluginInfo() {
-    return {
-    LLVM_PLUGIN_API_VERSION, "Hikari", LLVM_VERSION_STRING,
-        [](PassBuilder &PB) {
-            // cryptoutils->prng_seed();
-            PB.registerPipelineStartEPCallback(
-                [](llvm::ModulePassManager &PM,
-                    PassBuilder::OptimizationLevel Level) {
-                    PM.addPass(AntiClassDumpPass()); /*only apple*/
-                    PM.addPass(FunctionCallObfuscatePass()); /*only apple*/
-                    PM.addPass(IndirectBranchPass());
+// llvm::PassPluginLibraryInfo getOllvmPluginInfo() {
+//     return {
+//     LLVM_PLUGIN_API_VERSION, "Hikari", LLVM_VERSION_STRING,
+//         [](PassBuilder &PB) {
+//             // cryptoutils->prng_seed();
+//             PB.registerPipelineStartEPCallback(
+//                 [](llvm::ModulePassManager &PM,
+//                     PassBuilder::OptimizationLevel Level) {
+//                     errs() << "I saw a registerHikariModulePass " << "!\n";
+//                     PM.addPass(AntiClassDumpPass()); /*only apple*/
+//                     PM.addPass(FunctionCallObfuscatePass()); /*only apple*/
+//                     PM.addPass(IndirectBranchPass());
 
-                    llvm::FunctionPassManager FPM;
-                    FPM.addPass(BogusControlFlowPass());
-                    FPM.addPass(FlatteningPass());
-                    FPM.addPass(SplitBasicBlockPass());
-                    FPM.addPass(SubstitutionPass());
-                    PM.addPass(createModuleToFunctionPassAdaptor(std::move(FPM)));
-                });
+//                     llvm::FunctionPassManager FPM;
+//                     FPM.addPass(BogusControlFlowPass());
+//                     FPM.addPass(FlatteningPass());
+//                     FPM.addPass(SplitBasicBlockPass());
+//                     FPM.addPass(SubstitutionPass());
+//                     PM.addPass(createModuleToFunctionPassAdaptor(std::move(FPM)));
+//                 });
 
-            PB.registerOptimizerLastEPCallback(
-                [](llvm::ModulePassManager &PM,
-                    PassBuilder::OptimizationLevel Level) {
-                    PM.addPass(StringEncryptionPass());
-                    PM.addPass(FunctionWrapperPass());
-                });
-    }};
-}
+//             PB.registerOptimizerLastEPCallback(
+//                 [](llvm::ModulePassManager &PM,
+//                     PassBuilder::OptimizationLevel Level) {
+//                     errs() << "I saw a registerHikariModulePass " << "!\n";
+//                     PM.addPass(StringEncryptionPass());
+//                     PM.addPass(FunctionWrapperPass());
+//                 });
+//     }};
+// }
 
-extern "C" LLVM_ATTRIBUTE_WEAK llvm::PassPluginLibraryInfo
-llvmGetPassPluginInfo() {
-    return getOllvmPluginInfo();
-}
+// extern "C" LLVM_ATTRIBUTE_WEAK llvm::PassPluginLibraryInfo
+// llvmGetPassPluginInfo() {
+//     return getOllvmPluginInfo();
+// }
 
-}
-#else
+// }
+
+// #else
 using namespace llvm;
 
 static void registerHikariModulePass(const PassManagerBuilder &,
                               legacy::PassManagerBase &PM) {
 //    PM.add(createFunctionWrapperPass(true)); /*broken*/
-    PM.add(createStringEncryptionPass(true));
+    // errs() << "I saw a registerHikariModulePass " << "!\n";
+    // PM.add(createStringEncryptionPass(true));
 
 }
 
 static void registerHikariFunctionPass(const PassManagerBuilder &,
                               legacy::PassManagerBase &PM) {
-    PM.add(createBogusControlFlowPass(true));
-#if LLVM_VERSION_MAJOR >= 9
-    PM.add(createLowerSwitchPass());
-#endif
+    errs() << "I saw a registerHikariFunctionPass " << "!\n";
+//     PM.add(createBogusControlFlowPass(true));
+// #if LLVM_VERSION_MAJOR >= 9
+//     PM.add(createLowerSwitchPass());
+// #endif
     PM.add(createFlatteningPass(true));
-    PM.add(createFunctionCallObfuscatePass(true));
-    PM.add(createIndirectBranchPass(true));
-    PM.add(createSplitBasicBlockPass(true));
-    PM.add(createSubstitutionPass(true));
+    // PM.add(createFlattening(true));
+    // PM.add(createFunctionCallObfuscatePass(true));
+    // PM.add(createIndirectBranchPass(true));
+    // PM.add(createSplitBasicBlockPass(true));
+    // PM.add(createSubstitutionPass(true));
 }
 
 static RegisterStandardPasses
@@ -78,4 +84,4 @@ static RegisterStandardPasses
 static RegisterStandardPasses
         RegisterMyPass1(PassManagerBuilder::EP_EarlyAsPossible,
                         registerHikariFunctionPass);
-#endif
+// #endif

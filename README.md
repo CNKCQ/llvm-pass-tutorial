@@ -8,7 +8,7 @@
 # install llvm
 
 ```shell
-brew install llvm@13
+brew install --debug llvm@13
 ```
 
 # Visual Studio Code
@@ -18,3 +18,9 @@ brew install llvm@13
 * install C/C++
 
 ![](assets/16574454009176.jpg)
+
+# Test Case
+
+```shell
+clang -flegacy-pass-manager -Xclang -load -Xclang  ./Hikari/libHikari.so ../test/test.c
+```
