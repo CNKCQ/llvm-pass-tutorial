@@ -85,7 +85,7 @@ bool Flattening::flatten(Function *f) {
     origBB.push_back(tmp);
 
     BasicBlock *bb = &*i;
-    if (!isa<InvokeInst>(bb->getTerminator())) {
+    if (isa<InvokeInst>(bb->getTerminator())) {
       return false;
     }
   }
